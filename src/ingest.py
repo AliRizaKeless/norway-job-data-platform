@@ -2,14 +2,16 @@ import requests
 import json
 from datetime import datetime
 from pathlib import Path
+from src.config_reader import load_config
 
 
-RAW_DATA_PATH = Path("data/raw")
+config = load_config()
+RAW_DATA_PATH = Path(config["paths"]["raw_data"])
+SOURCE_URL = config["api"]["source_url"]
 
 
 def fetch_posts():
-    url = "https://jsonplaceholder.typicode.com/posts"
-    response = requests.get(url, timeout=30)
+    response = requests.get(SOURCE_URL, timeout=30)
     response.raise_for_status()
     return response.json()
 

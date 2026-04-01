@@ -1,10 +1,12 @@
 import duckdb
 from pathlib import Path
+from src.config_reader import load_config
 
 
-PROCESSED_FILE = Path("data/processed/posts_clean.csv")
-WAREHOUSE_PATH = Path("data/warehouse")
-DB_FILE = WAREHOUSE_PATH / "job_data.duckdb"
+config = load_config()
+PROCESSED_FILE = Path(config["paths"]["processed_data"]) / config["files"]["processed_csv"]
+WAREHOUSE_PATH = Path(config["paths"]["warehouse_data"])
+DB_FILE = WAREHOUSE_PATH / config["files"]["duckdb_file"]
 
 
 def load_to_warehouse():
@@ -14,10 +16,10 @@ def load_to_warehouse():
 
     conn = duckdb.connect(str(DB_FILE))
 
-    conn.execute("""
+    conn.execute(f"""
         CREATE OR REPLACE TABLE posts AS
         SELECT *
-        FROM read_csv_auto('data/processed/posts_clean.csv')
+        FROM read_csv_auto('{PROCESSED_FILE.as_posix()}')
     """)
 
     row_count = conn.execute("SELECT COUNT(*) FROM posts").fetchone()[0]

@@ -1,8 +1,10 @@
 import pandas as pd
 from pathlib import Path
+from src.config_reader import load_config
 
 
-PROCESSED_FILE = Path("data/processed/posts_clean.csv")
+config = load_config()
+PROCESSED_FILE = Path(config["paths"]["processed_data"]) / config["files"]["processed_csv"]
 
 
 def validate_processed_data():

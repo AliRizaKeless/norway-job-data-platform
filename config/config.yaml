@@ -1,0 +1,12 @@
+paths:
+  raw_data: data/raw
+  processed_data: data/processed
+  warehouse_data: data/warehouse
+  logs: logs
+
+files:
+  processed_csv: posts_clean.csv
+  duckdb_file: job_data.duckdb
+
+api:
+  source_url: https://jsonplaceholder.typicode.com/posts

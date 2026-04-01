@@ -1,10 +1,13 @@
 import pandas as pd
 import json
 from pathlib import Path
+from src.config_reader import load_config
 
 
-RAW_PATH = Path("data/raw")
-PROCESSED_PATH = Path("data/processed")
+config = load_config()
+RAW_PATH = Path(config["paths"]["raw_data"])
+PROCESSED_PATH = Path(config["paths"]["processed_data"])
+PROCESSED_FILE_NAME = config["files"]["processed_csv"]
 
 
 def get_latest_raw_file():
@@ -23,13 +26,11 @@ def transform_data():
         data = json.load(f)
 
     df = pd.DataFrame(data)
-
-    # Basit temizlik
     df = df.drop_duplicates()
     df = df.dropna()
 
     PROCESSED_PATH.mkdir(parents=True, exist_ok=True)
-    output_file = PROCESSED_PATH / "posts_clean.csv"
+    output_file = PROCESSED_PATH / PROCESSED_FILE_NAME
 
     df.to_csv(output_file, index=False)
 
