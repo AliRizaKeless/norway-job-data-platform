@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+*.duckdb
+
+data/raw/*
+data/processed/*
+data/warehouse/*
+logs/*
