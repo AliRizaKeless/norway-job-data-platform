@@ -1,12 +1,11 @@
 import requests
 
 
-def search_ssb_tables():
-    url = "https://data.ssb.no/api/pxwebapi/v2/tables"
+def fetch_ssb_data():
+    url = "https://data.ssb.no/api/pxwebapi/v2/tables/08651/data"
     params = {
         "lang": "en",
-        "query": "employment",
-        "pagesize": 5
+        "outputFormat": "json-stat2"
     }
 
     response = requests.get(url, params=params, timeout=30)
@@ -14,9 +13,10 @@ def search_ssb_tables():
 
     data = response.json()
 
-    print("[INFO] SSB table search successful")
-    print(data)
+    print("[INFO] SSB data fetch successful")
+    print(type(data))
+    print(data.keys())
 
 
 if __name__ == "__main__":
-    search_ssb_tables()
+    fetch_ssb_data()
