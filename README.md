@@ -86,3 +86,11 @@ This project implements a simple medallion-style data platform:
 
 \- Add GitHub Actions workflow
 
+
+
+\## Next development step
+
+
+
+The current pipeline uses a demo API. The next milestone is to replace the demo source with a real Norwegian data source from Statistics Norway (SSB) and adapt the pipeline for labor market analytics.
+

@@ -9,4 +9,9 @@ files:
   duckdb_file: job_data.duckdb
 
 api:
+  source_name: jsonplaceholder
   source_url: https://jsonplaceholder.typicode.com/posts
+
+ssb:
+  base_url: https://data.ssb.no/api/v0/en/table
+  planned_source: StatBank Norway
