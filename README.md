@@ -52,3 +52,37 @@ This project implements a simple medallion-style data platform:
 
 \- YAML-based configuration management
 
+
+
+\## Current Status
+
+
+
+\- Project structure initialized
+
+\- Raw data ingestion implemented
+
+\- Transformation step added
+
+\- Data validation checks added
+
+\- DuckDB warehouse layer added
+
+\- Logging and YAML configuration added
+
+
+
+\## Roadmap
+
+
+
+\- Replace demo API with Norwegian data source
+
+\- Add analytics SQL queries
+
+\- Add Azure Blob Storage integration
+
+\- Add Terraform infrastructure
+
+\- Add GitHub Actions workflow
+
