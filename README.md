@@ -102,3 +102,13 @@ The current pipeline uses a demo API. The next milestone is to replace the demo 
 
 The old SSB ready-made dataset API has been deprecated. The project will use the newer PxWebApi v2 integration in a later step.
 
+
+
+\## SSB Integration Plan
+
+
+
+The current version uses a demo API to keep the pipeline stable.  
+
+The next milestone is to integrate Statistics Norway (SSB) using the newer PxWebApi v2 instead of deprecated dataset endpoints.
+
