@@ -94,3 +94,11 @@ This project implements a simple medallion-style data platform:
 
 The current pipeline uses a demo API. The next milestone is to replace the demo source with a real Norwegian data source from Statistics Norway (SSB) and adapt the pipeline for labor market analytics.
 
+
+
+\## SSB integration note
+
+
+
+The old SSB ready-made dataset API has been deprecated. The project will use the newer PxWebApi v2 integration in a later step.
+
