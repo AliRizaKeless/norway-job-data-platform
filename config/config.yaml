@@ -5,8 +5,8 @@ paths:
   logs: logs
 
 files:
-  processed_csv: posts_clean.csv
-  duckdb_file: job_data.duckdb
+  processed_csv: ssb_construction_cost_index_clean.csv
+  duckdb_file: ssb_analytics.duckdb
 
 api:
   source_name: jsonplaceholder
