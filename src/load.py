@@ -1,9 +1,11 @@
 import duckdb
 from pathlib import Path
+
 from src.config_reader import load_config
 
 
 config = load_config()
+
 PROCESSED_FILE = Path(config["paths"]["processed_data"]) / config["files"]["processed_csv"]
 WAREHOUSE_PATH = Path(config["paths"]["warehouse_data"])
 DB_FILE = WAREHOUSE_PATH / config["files"]["duckdb_file"]
@@ -17,13 +19,19 @@ def load_to_warehouse():
     conn = duckdb.connect(str(DB_FILE))
 
     conn.execute(f"""
-        CREATE OR REPLACE TABLE posts AS
+        CREATE OR REPLACE TABLE ssb_construction_cost_index AS
         SELECT *
         FROM read_csv_auto('{PROCESSED_FILE.as_posix()}')
     """)
 
-    row_count = conn.execute("SELECT COUNT(*) FROM posts").fetchone()[0]
-    print(f"[INFO] Loaded {row_count} rows into warehouse table: posts")
+    row_count = conn.execute(
+        "SELECT COUNT(*) FROM ssb_construction_cost_index"
+    ).fetchone()[0]
+
+    print(
+        f"[INFO] Loaded {row_count} rows into warehouse table: "
+        "ssb_construction_cost_index"
+    )
 
     conn.close()
     print(f"[INFO] DuckDB database saved to: {DB_FILE}")

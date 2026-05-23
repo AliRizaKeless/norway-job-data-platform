@@ -1,4 +1,7 @@
-SELECT userId, COUNT(*) AS post_count
-FROM posts
-GROUP BY userId
-ORDER BY post_count DESC;
+SELECT
+    Tid,
+    AVG(value) AS avg_index_value
+FROM ssb_construction_cost_index
+WHERE ContentsCode = 'Construction cost index'
+GROUP BY Tid
+ORDER BY Tid DESC;
