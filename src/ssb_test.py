@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import itertools
 
 
 def fetch_ssb_data():
@@ -16,17 +17,18 @@ def fetch_ssb_data():
 
 def convert_to_dataframe(data):
     values = data["value"]
+    dimensions = data["dimension"]
 
-    dimensions = data["id"]
-    sizes = data["size"]
+    dim_names = list(dimensions.keys())
 
-    print("[INFO] Dimensions:", dimensions)
-    print("[INFO] Sizes:", sizes)
-    print("[INFO] Number of values:", len(values))
+    categories = []
+    for dim in dim_names:
+        categories.append(list(dimensions[dim]["category"]["label"].values()))
 
-    df = pd.DataFrame({
-        "value": values
-    })
+    combinations = list(itertools.product(*categories))
+
+    df = pd.DataFrame(combinations, columns=dim_names)
+    df["value"] = values
 
     return df
 
