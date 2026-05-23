@@ -108,7 +108,29 @@ The old SSB ready-made dataset API has been deprecated. The project will use the
 
 
 
-The current version uses a demo API to keep the pipeline stable.  
+The current version uses a demo API to keep the pipeline stable.
 
 The next milestone is to integrate Statistics Norway (SSB) using the newer PxWebApi v2 instead of deprecated dataset endpoints.
+
+
+
+\## Example Analytics Query
+
+
+
+The pipeline produces analytics-ready data stored in DuckDB.  
+
+Example query result:
+
+
+
+| Tid     | avg\_index\_value |
+
+|--------|-----------------|
+
+| 2026M04 | 159.33 |
+
+
+
+This demonstrates how the data can be aggregated and used for reporting and analysis.
 
