@@ -31,3 +31,10 @@ jobs:
       - name: Run analytics query
         run: |
           python -m src.run_analytics
+
+      - name: Upload processed dataset to Azure Blob
+        env:
+          AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+          AZURE_CONTAINER_NAME: ${{ secrets.AZURE_CONTAINER_NAME }}
+        run: |
+          python -m src.upload_to_azure
