@@ -3,3 +3,5 @@ requests
 duckdb
 pyarrow
 pyyaml
+azure-storage-blob
+python-dotenv
