@@ -237,6 +237,22 @@ py main.py
 py -m src.run\_analytics
 
 
+## Azure Blob Storage Integration
+
+The pipeline uploads the processed dataset to Azure Blob Storage after local processing.
+
+Current cloud output:
+
+```text
+processed/ssb_construction_cost_index_clean.csv
+
+Azure components used:
+
+Azure Storage Account
+Azure Blob Container
+Secure connection string via .env
+Python Azure SDK (azure-storage-blob)
+
 
 Current Status
 
