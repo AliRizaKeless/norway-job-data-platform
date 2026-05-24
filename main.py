@@ -1,19 +1,31 @@
 from src.ingest import run_ingestion
 from src.transform import transform_data
-from src.validate import validate_processed_data
+from src.validate import validate_data
 from src.load import load_to_warehouse
-from src.logger import setup_logger
+from src.logger import get_logger
+
+logger = get_logger()
 
 
 def main():
-    logger = setup_logger()
-
     logger.info("Pipeline started")
 
-    run_ingestion()
-    transform_data()
-    validate_processed_data()
-    load_to_warehouse()
+    steps = [
+        ("Ingestion", run_ingestion),
+        ("Transformation", transform_data),
+        ("Validation", validate_data),
+        ("Warehouse Load", load_to_warehouse),
+    ]
+
+    for step_name, step_func in steps:
+        try:
+            logger.info(f"Starting step: {step_name}")
+            step_func()
+            logger.info(f"Finished step: {step_name}")
+
+        except Exception as e:
+            logger.error(f"Step failed: {step_name} | Error: {e}")
+            raise
 
     logger.info("Pipeline finished successfully")
 
