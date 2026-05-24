@@ -2,39 +2,105 @@
 
 
 
-A modern data engineering project that ingests, processes, and models Norwegian job market data.
+A modern data engineering project that ingests, processes, and analyzes Norwegian statistical data using a layered data architecture and cloud-ready design principles.
 
 
 
-\## Stack
+\---
+
+
+
+\## Overview
+
+
+
+This project demonstrates how to build an end-to-end data pipeline that:
+
+
+
+\- Ingests real-world data from Statistics Norway (SSB)
+
+\- Processes and cleans the data using Python
+
+\- Validates data quality
+
+\- Loads analytics-ready data into a DuckDB warehouse
+
+\- Runs SQL queries for analysis
+
+
+
+The project follows a \*\*medallion-style architecture\*\* (raw → processed → analytics).
+
+
+
+\---
+
+
+
+\## Architecture
+
+
+
+SSB API (PxWebApi v2)
+
+↓
+
+Ingestion Layer (Python)
+
+↓
+
+Raw Data (JSON)
+
+↓
+
+Transformation Layer
+
+↓
+
+Processed Data (CSV)
+
+↓
+
+Validation Layer
+
+↓
+
+Warehouse Layer (DuckDB)
+
+↓
+
+SQL Analytics
+
+
+
+
+
+\---
+
+
+
+\## Tech Stack
 
 
 
 \- Python
 
-\- SQL
+\- Pandas
 
 \- DuckDB
 
-\- Azure (later)
+\- SQL
 
-\- Terraform (later)
+\- YAML (configuration)
 
+\- Logging
 
-
-\## Pipeline Overview
-
-
-
-This project implements a simple medallion-style data platform:
+\- Git \& GitHub
 
 
 
-\- \*\*Bronze layer\*\*: Raw data ingestion from API
-
-\- \*\*Silver layer\*\*: Cleaned and processed dataset
-
-\- \*\*Gold layer\*\*: Analytics-ready data stored in DuckDB
+\---
 
 
 
@@ -42,75 +108,23 @@ This project implements a simple medallion-style data platform:
 
 
 
-\- Data ingestion from external API
+\- Data ingestion from SSB (Statistics Norway API)
 
-\- Data transformation and cleaning
+\- JSON-stat data transformation into structured tables
 
-\- Data validation checks
+\- Data quality validation (nulls, duplicates, row count)
 
-\- Logging system for pipeline monitoring
+\- Logging for pipeline monitoring
 
-\- YAML-based configuration management
+\- Config-driven pipeline using YAML
 
+\- Analytics-ready warehouse layer
 
-
-\## Current Status
-
-
-
-\- Project structure initialized
-
-\- Raw data ingestion implemented
-
-\- Transformation step added
-
-\- Data validation checks added
-
-\- DuckDB warehouse layer added
-
-\- Logging and YAML configuration added
+\- SQL query execution
 
 
 
-\## Roadmap
-
-
-
-\- Replace demo API with Norwegian data source
-
-\- Add analytics SQL queries
-
-\- Add Azure Blob Storage integration
-
-\- Add Terraform infrastructure
-
-\- Add GitHub Actions workflow
-
-
-
-\## Next development step
-
-
-
-The current pipeline uses a demo API. The next milestone is to replace the demo source with a real Norwegian data source from Statistics Norway (SSB) and adapt the pipeline for labor market analytics.
-
-
-
-\## SSB integration note
-
-
-
-The old SSB ready-made dataset API has been deprecated. The project will use the newer PxWebApi v2 integration in a later step.
-
-
-
-\## SSB Integration Plan
-
-
-
-The current version uses a demo API to keep the pipeline stable.
-
-The next milestone is to integrate Statistics Norway (SSB) using the newer PxWebApi v2 instead of deprecated dataset endpoints.
+\---
 
 
 
@@ -118,19 +132,143 @@ The next milestone is to integrate Statistics Norway (SSB) using the newer PxWeb
 
 
 
-The pipeline produces analytics-ready data stored in DuckDB.  
+```sql
 
-Example query result:
+SELECT
+
+&#x20;   Tid,
+
+&#x20;   AVG(value) AS avg\_index\_value
+
+FROM ssb\_construction\_cost\_index
+
+WHERE ContentsCode = 'Construction cost index'
+
+GROUP BY Tid
+
+ORDER BY Tid DESC;
+
+
+
+Example Output
 
 
 
 | Tid     | avg\_index\_value |
 
-|--------|-----------------|
+| ------- | --------------- |
 
-| 2026M04 | 159.33 |
+| 2026M04 | 159.33          |
 
 
 
-This demonstrates how the data can be aggregated and used for reporting and analysis.
+Project Structure
+
+
+
+norway-job-data-platform/
+
+│
+
+├── data/
+
+│   ├── raw/
+
+│   ├── processed/
+
+│   └── warehouse/
+
+│
+
+├── src/
+
+│   ├── ingest.py
+
+│   ├── transform.py
+
+│   ├── validate.py
+
+│   ├── load.py
+
+│   ├── run\_analytics.py
+
+│   ├── logger.py
+
+│   └── config\_reader.py
+
+│
+
+├── config/
+
+│   └── config.yaml
+
+│
+
+├── sql/
+
+│   └── analytics.sql
+
+│
+
+├── logs/
+
+├── main.py
+
+└── README.md
+
+
+
+How to Run
+
+1\. Install dependencies
+
+pip install -r requirements.txt
+
+
+
+2\. Run the pipeline
+
+py main.py
+
+
+
+3\. Run analytics Query
+
+py -m src.run\_analytics
+
+
+
+Current Status
+
+Data ingestion from SSB
+
+Transformation and cleaning
+
+Data validation
+
+Warehouse loading
+
+SQL analytics 
+
+
+
+Future Improvements
+
+Azure Blob Storage integration
+
+Infrastructure as Code (Terraform)
+
+Automated pipelines (GitHub Actions)
+
+Incremental data loading
+
+Dashboard / visualization layer
+
+
+
+Author
+
+
+
+Built as part of a modern data engineering portfolio project focused on real-world data pipelines and cloud-ready architecture.
 
