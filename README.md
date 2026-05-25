@@ -253,6 +253,35 @@ Azure Blob Container
 Secure connection string via .env
 Python Azure SDK (azure-storage-blob)
 
+## Pipeline Orchestration
+
+The pipeline is organized as step-based execution:
+
+1. Ingestion
+2. Transformation
+3. Validation
+4. Warehouse Load
+
+Each step is executed sequentially with logging and error handling.  
+If one step fails, the pipeline logs the failing step and stops execution.
+
+---
+
+## Data Quality Report
+
+The validation layer generates a data quality report under:
+
+```text
+logs/data_quality_report.txt
+
+The report includes:
+
+row count
+duplicate row count
+null value count
+validation status
+
+This provides basic observability and makes the pipeline easier to monitor.
 
 Current Status
 
@@ -283,7 +312,6 @@ Dashboard / visualization layer
 
 
 Author
-
 
 
 Built as part of a modern data engineering portfolio project focused on real-world data pipelines and cloud-ready architecture.
