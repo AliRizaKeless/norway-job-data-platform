@@ -2,9 +2,9 @@ from src.ingest import run_ingestion
 from src.transform import transform_data
 from src.validate import validate_data
 from src.load import load_to_warehouse
-from src.logger import get_logger
+from src.logger import setup_logger
 
-logger = get_logger()
+logger = setup_logger()
 
 
 def main():
