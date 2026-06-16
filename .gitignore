@@ -8,3 +8,11 @@ data/raw/*
 data/processed/*
 data/warehouse/*
 logs/*
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+*.tfvars.json
