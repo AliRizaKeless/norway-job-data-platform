@@ -42,35 +42,26 @@ The project follows a \*\*medallion-style architecture\*\* (raw → processed �
 
 
 
-SSB API (PxWebApi v2)
-
-↓
-
-Ingestion Layer (Python)
-
-↓
-
-Raw Data (JSON)
-
-↓
-
+SSB API
+   ↓
+Ingestion Layer
+   ↓
+Raw JSON
+   ↓
 Transformation Layer
-
-↓
-
-Processed Data (CSV)
-
-↓
-
+   ↓
+Processed CSV
+   ↓
 Validation Layer
+   ↓
+DuckDB Warehouse
+   ↓
+Analytics SQL
+   ↓
+Azure Blob Storage
 
-↓
-
-Warehouse Layer (DuckDB)
-
-↓
-
-SQL Analytics
+Infrastructure managed with Terraform
+CI/CD powered by GitHub Actions
 
 
 
@@ -84,19 +75,15 @@ SQL Analytics
 
 
 
-\- Python
-
-\- Pandas
-
-\- DuckDB
-
-\- SQL
-
-\- YAML (configuration)
-
-\- Logging
-
-\- Git \& GitHub
+- Python
+- Pandas
+- DuckDB
+- SQL
+- Azure Blob Storage
+- Terraform
+- GitHub Actions
+- YAML
+- Logging
 
 
 
@@ -216,6 +203,31 @@ norway-job-data-platform/
 
 └── README.md
 
+Infrastructure as Code
+
+The Azure infrastructure is provisioned using Terraform.
+
+Resources managed by Terraform:
+
+- Azure Resource Group
+- Azure Storage Account
+- Azure Blob Container
+
+Terraform configuration is stored under:
+
+infrastructure/terraform/
+
+
+CI/CD
+
+GitHub Actions is used to validate the pipeline automatically on every push.
+
+The workflow:
+
+1. Install dependencies
+2. Run pipeline validation
+3. Execute tests
+4. Verify infrastructure configuration
 
 
 How to Run
@@ -283,31 +295,35 @@ validation status
 
 This provides basic observability and makes the pipeline easier to monitor.
 
-Current Status
 
-Data ingestion from SSB
+## Current Status
 
-Transformation and cleaning
+✅ SSB data ingestion
 
-Data validation
+✅ Data transformation
 
-Warehouse loading
+✅ Data quality validation
 
-SQL analytics 
+✅ DuckDB analytics warehouse
+
+✅ SQL analytics queries
+
+✅ Azure Blob Storage integration
+
+✅ GitHub Actions CI/CD
+
+✅ Terraform Infrastructure as Code
+
+✅ CLI-based pipeline execution 
 
 
 
-Future Improvements
+## Future Improvements
 
-Azure Blob Storage integration
-
-Infrastructure as Code (Terraform)
-
-Automated pipelines (GitHub Actions)
-
-Incremental data loading
-
-Dashboard / visualization layer
+- Incremental data loading
+- Automated scheduling (Azure Functions / Airflow)
+- Dashboard and visualization layer
+- Monitoring and alerting
 
 
 
